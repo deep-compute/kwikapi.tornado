@@ -1,26 +1,32 @@
-# Use kwikapi in Tornado
-## Install kwikapi for Tornado
+# kwikapi.tornado
+Quickly build API services to expose functionality in Python. `kwikapi.tornado` was built by using the functionality of KwikAPI and Tornado web server.
+
+## Installation
+
 ```bash
 $ pip install kwikapi[tornado]
 ```
 
-## Example python script to use kwikapi with Tornado(sample.py)
+## Usage
+
+### Basic example to use kwikapi.tornado
+
+sample.py
 ```python
 import tornado.ioloop
 import tornado.web
 
 from kwikapi.tornado import RequestHandler
 from kwikapi import API
-from logging import Logger
 
-class BaseCalc():
-    def add(self, a: int, b: int) -> int:
+class BaseCalc(object):
+    def add(self, a: int, b: int):
         return a + b
 
-    def subtract(self, a: int, b: int) -> int:
+    def subtract(self, a: int, b: int):
         return a - b
 
-api = API(Logger, default_version='v1')
+api = API(default_version='v1')
 api.register(BaseCalc(), 'v1')
 
 def make_app():
@@ -33,12 +39,15 @@ if __name__ == "__main__":
     app.listen(8888)
     tornado.ioloop.IOLoop.current().start()
 ```
-## Run Tornado script
+
+### Run script
+
 ```bash
 $ python sample.py
 ```
 
-## Make API request
+### Make API request
+
 ```bash
 $ curl "http://localhost:8888/api/v1/add?a=10&b=10"
 ```
