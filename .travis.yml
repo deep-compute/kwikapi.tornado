@@ -17,8 +17,8 @@ deploy:
     - kwikapi/__init__.py
     - kwikapi/tornado/__init__.py
     - kwikapi/tornado/kwikapi_tornado.py
-  name: kwikapi.tornado-0.1
-  tag_name: 0.1
+  name: kwikapi.tornado-0.1.1
+  tag_name: 0.1.1
   on:
     repo: deep-compute/kwikapi.tornado
 - provider: pypi
