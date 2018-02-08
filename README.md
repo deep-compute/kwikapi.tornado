@@ -20,10 +20,10 @@ from kwikapi.tornado import RequestHandler
 from kwikapi import API
 
 class BaseCalc(object):
-    def add(self, a: int, b: int):
+    def add(self, a, b):
         return a + b
 
-    def subtract(self, a: int, b: int):
+    def subtract(self, a, b):
         return a - b
 
 api = API(default_version='v1')
