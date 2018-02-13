@@ -20,10 +20,10 @@ from kwikapi.tornado import RequestHandler
 from kwikapi import API
 
 class BaseCalc(object):
-    def add(self, a, b):
+    def add(self, a: int, b: int) -> int:
         return a + b
 
-    def subtract(self, a, b):
+    def subtract(self, a: int, b: int) -> int:
         return a - b
 
 api = API(default_version='v1')
@@ -51,3 +51,5 @@ $ python sample.py
 ```bash
 $ curl "http://localhost:8888/api/v1/add?a=10&b=10"
 ```
+
+> To know how to use all features, please refer KwikAPI documentation https://github.com/deep-compute/kwikapi/blob/master/README.md
