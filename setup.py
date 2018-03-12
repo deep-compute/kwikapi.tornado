@@ -1,12 +1,11 @@
 from setuptools import setup, find_packages
 
 # https://docs.djangoproject.com/en/1.11/intro/reusable-apps/
-version = '0.2'
+version = '0.2.1'
 setup(
     name="kwikapi-tornado",
     version=version,
-    packages=find_packages("."),
-    package_dir={'kwikapi_tornado': 'tornado'},
+    packages=['kwikapi.tornado'],
     include_package_data=True,
     license='MIT License',  # example license
     description='Quickest way to build powerful HTTP APIs in Python',
