@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*
 
 from tornado.web import RequestHandler as TornadoRequestHandler
+from tornado.web import asynchronous
 from kwikapi import BaseRequest, BaseResponse, BaseRequestHandler
+
+from deeputil import Dummy
+
+DUMMY_LOG = Dummy()
 
 class TornadoRequest(BaseRequest):
 
@@ -33,7 +38,7 @@ class TornadoResponse(BaseResponse):
         self.headers = {}
 
     def write(self, data, proto, stream=False):
-        super().write(data, proto, stream=stream)
+        n, t = super().write(data, proto, stream=stream)
 
         for k, v in self.headers.items():
             self._req_hdlr.set_header(k, v)
@@ -42,10 +47,12 @@ class TornadoResponse(BaseResponse):
 
         if not stream:
             self._req_hdlr.write(d)
-            return
+            return n, t
 
         for x in d:
             self._req_hdlr.write(x)
+
+        return n, t
 
     def flush(self):
         self._req_hdlr.flush()
@@ -54,14 +61,29 @@ class TornadoResponse(BaseResponse):
         self._req_hdlr.finish()
 
 class RequestHandler(TornadoRequestHandler):
+    PROTOCOL = BaseRequestHandler.DEFAULT_PROTOCOL
+
     def __init__(self, *args, **kwargs):
-        api = kwargs.pop('api')
+        self.api = kwargs.pop('api')
+        self.log = kwargs.pop('log', DUMMY_LOG)
         default_version = kwargs.pop('default_version', None)
-        self.kwik_req_hdlr = BaseRequestHandler(api, default_version)
+        default_protocol = kwargs.pop('default_protocol', self.PROTOCOL)
+        self.kwik_req_hdlr = BaseRequestHandler(self.api,
+                default_version, default_protocol, log=self.log)
 
         super().__init__(*args, **kwargs)
 
+    @asynchronous
     def _handle(self):
-        self.kwik_req_hdlr.handle_request(TornadoRequest(self))
+        threadpool = self.api.threadpool
+
+        def fn():
+            self.kwik_req_hdlr.handle_request(TornadoRequest(self))
+            self.finish()
+
+        if threadpool:
+            threadpool.apply_async(fn)
+        else:
+            fn()
 
     get = post = _handle
