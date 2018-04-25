@@ -4,7 +4,7 @@ Quickly build API services to expose functionality in Python. `kwikapi.tornado` 
 ## Installation
 
 ```bash
-$ pip install kwikapi[tornado]
+$ pip3 install kwikapi[tornado]
 ```
 
 ## Usage
@@ -43,7 +43,7 @@ if __name__ == "__main__":
 ### Run script
 
 ```bash
-$ python sample.py
+$ python3 sample.py
 ```
 
 ### Make API request
