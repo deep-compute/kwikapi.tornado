@@ -14,7 +14,7 @@ setup(
     author='Deep Compute, LLC',
     author_email='contact@deepcompute.com',
     install_requires=[
-        'tornado==4.5.3',
+        'tornado==5.0.2',
         'deeputil==0.2.5',
     ],
     classifiers=[
