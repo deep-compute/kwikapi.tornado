@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*
 
+import asyncio
+
 from tornado.web import RequestHandler as TornadoRequestHandler
 from tornado.web import asynchronous
+import tornado.ioloop
 from kwikapi import BaseRequest, BaseResponse, BaseRequestHandler
 
 from deeputil import Dummy
@@ -39,8 +42,9 @@ class TornadoResponse(BaseResponse):
 
     def write(self, data, proto, stream=False):
         n, t = super().write(data, proto, stream=stream)
+        self._stream = stream
 
-        for k, v in self.headers.items():
+        '''for k, v in self.headers.items():
             self._req_hdlr.set_header(k, v)
 
         d = self._data
@@ -50,15 +54,17 @@ class TornadoResponse(BaseResponse):
             return n, t
 
         for x in d:
-            self._req_hdlr.write(x)
+            self._req_hdlr.write(x)'''
 
         return n, t
 
     def flush(self):
-        self._req_hdlr.flush()
+        #self._req_hdlr.flush()
+        pass
 
     def close(self):
-        self._req_hdlr.finish()
+        #self._req_hdlr.finish()
+        pass
 
 class RequestHandler(TornadoRequestHandler):
     PROTOCOL = BaseRequestHandler.DEFAULT_PROTOCOL
@@ -73,17 +79,30 @@ class RequestHandler(TornadoRequestHandler):
 
         super().__init__(*args, **kwargs)
 
-    @asynchronous
-    def _handle(self):
+    async def _handle(self):
         threadpool = self.api.threadpool
 
         def fn():
-            self.kwik_req_hdlr.handle_request(TornadoRequest(self))
-            self.finish()
+            req = TornadoRequest(self)
+            self.kwik_req_hdlr.handle_request(req)
+            return req.response
 
         if threadpool:
-            threadpool.submit(fn)
+            loop = tornado.ioloop.IOLoop.current()
+            res = await loop.run_in_executor(threadpool, fn)
         else:
-            fn()
+            res = fn()
+
+        for k, v in res.headers.items():
+            self.set_header(k, v)
+
+        if not res._stream:
+            self.write(res._data)
+        else:
+            for x in res._data:
+                res.write(x)
+
+        self.flush()
+        self.finish()
 
     get = post = _handle
