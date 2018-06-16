@@ -100,7 +100,7 @@ class RequestHandler(TornadoRequestHandler):
             self.write(res._data)
         else:
             for x in res._data:
-                res.write(x)
+                self.write(x)
 
         self.flush()
         self.finish()
