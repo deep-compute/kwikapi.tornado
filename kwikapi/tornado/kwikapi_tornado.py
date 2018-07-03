@@ -6,6 +6,7 @@ from tornado.web import RequestHandler as TornadoRequestHandler
 from tornado.web import asynchronous
 import tornado.ioloop
 from kwikapi import BaseRequest, BaseResponse, BaseRequestHandler
+from requests.structures import CaseInsensitiveDict
 
 from deeputil import Dummy
 
@@ -38,7 +39,7 @@ class TornadoResponse(BaseResponse):
     def __init__(self, req_hdlr):
         super().__init__()
         self._req_hdlr = req_hdlr
-        self.headers = {}
+        self.headers = CaseInsensitiveDict()
 
     def write(self, data, proto, stream=False):
         n, t = super().write(data, proto, stream=stream)
@@ -48,26 +49,12 @@ class TornadoResponse(BaseResponse):
 
         self._stream = stream
 
-        '''for k, v in self.headers.items():
-            self._req_hdlr.set_header(k, v)
-
-        d = self._data
-
-        if not stream:
-            self._req_hdlr.write(d)
-            return n, t
-
-        for x in d:
-            self._req_hdlr.write(x)'''
-
         return n, t
 
     def flush(self):
-        #self._req_hdlr.flush()
         pass
 
     def close(self):
-        #self._req_hdlr.finish()
         pass
 
 class RequestHandler(TornadoRequestHandler):
