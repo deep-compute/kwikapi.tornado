@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 # https://docs.djangoproject.com/en/1.11/intro/reusable-apps/
-version = '0.2.5'
+version = '0.2.6'
 setup(
     name="kwikapi-tornado",
     version=version,
@@ -16,6 +16,7 @@ setup(
     install_requires=[
         'tornado==5.0.2',
         'deeputil==0.2.5',
+        'requests==2.18.4',
     ],
     classifiers=[
         'Environment :: Web Environment',
