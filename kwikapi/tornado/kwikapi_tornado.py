@@ -42,6 +42,10 @@ class TornadoResponse(BaseResponse):
 
     def write(self, data, proto, stream=False):
         n, t = super().write(data, proto, stream=stream)
+
+        if not stream:
+            self.headers['Content-Length'] = n.value
+
         self._stream = stream
 
         '''for k, v in self.headers.items():
