@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*
 
 import asyncio
+import zlib
 
 from tornado.web import RequestHandler as TornadoRequestHandler
 from tornado.web import asynchronous
@@ -45,7 +46,17 @@ class TornadoResponse(BaseResponse):
         n, t = super().write(data, proto, stream=stream)
 
         if not stream:
-            self.headers['Content-Length'] = n.value
+            nbytes = n.value
+
+            accept_enc = self._req_hdlr.request.headers['Accept-Encoding']
+            accept_enc = set([e.strip().lower() for e in accept_enc.split(',') if e.strip()])
+
+            if 'gzip' in accept_enc:
+                self._data = zlib.compress(self._data)
+                nbytes = len(self._data)
+                self.headers['Content-Encoding'] = 'gzip'
+
+            self.headers['Content-Length'] = nbytes
 
         self._stream = stream
 
