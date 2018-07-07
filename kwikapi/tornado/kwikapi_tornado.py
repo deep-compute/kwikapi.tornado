@@ -54,7 +54,7 @@ class TornadoResponse(BaseResponse):
             if 'gzip' in accept_enc:
                 self._data = zlib.compress(self._data)
                 nbytes = len(self._data)
-                self.headers['Content-Encoding'] = 'gzip'
+                self.headers['Content-Encoding'] = 'deflate'
 
             self.headers['Content-Length'] = nbytes
 
