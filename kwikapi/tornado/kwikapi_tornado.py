@@ -60,7 +60,7 @@ class TornadoResponse(BaseResponse):
                 gfile.close()
                 self._data = compressed.getvalue()
                 nbytes = len(self._data)
-                self.headers['Content-Encoding'] = 'deflate'
+                self.headers['Content-Encoding'] = 'gzip'
 
             self.headers['Content-Length'] = nbytes
 
