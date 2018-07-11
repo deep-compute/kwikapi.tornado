@@ -10,8 +10,8 @@ deploy:
   skip_cleanup: true
   api_key:
     secure: 3wIm6vrNmdIP50NIUtig33S34FonRqxGnRRY55oiMN4BD5xeo2iQb8TmWMswwqVTuO09C3Cd7kBxP5JxBR+dCuVZZRqpL/8E6JUTaGyZcQ/9HgB8FwYXRCj2ASPDHfmjmZ8F3GIX19akJLKiTThB1WU3XidcZ9tZgwvOmf10Jy7IXiddRKwucVVVy608H9hUXPpIVMzqcFfeU2KeXcotU0J2eZyqso/RCPNw4qDZKFvkiKT2MM4B6FgY7WYorNUW1JXdh8dcAV7vb0oNB0iUNLMCpNHFqoyfOHcxKUgP81wMS8TY5wWLuQxUESg1eyo7Q9gwegOseySU1NBjlPyltVVWtulltM2sge0KgVoLgQRia/LeKnCynSi2r8aic1VoMUDEH5ZfWuJJrFHOJyKCNapp3MKK42UXDo28NpdjjUUgJOOukWpXsaVmPhPXpWWQlZM9YMeMPxTUpm3ZACs2WmHssVwO7EaTaJ45ctAf4m0csb7Ri5IyR5iLy9YEX6fuNMoNVCI6lE7ax38pf1mkgamZTJtvEFr+ekKMXq3heVk598rA2P7hzI5Z6Zx7S8GyQz4vveSTk/pY3StX1ScU3ULnLQaEjP1LVI3pu6R5w7PdQ+Ew6fPmU7RpD8rZPKfFoBcby1mf2Mb/HNk8jXPTHTmyTKBB+othHHg4BWM3Kuw=
-  name: kwikapi.tornado-0.2.9
-  tag_name: 0.2.9
+  name: kwikapi.tornado-0.3
+  tag_name: 0.3
   on:
     repo: deep-compute/kwikapi.tornado
 - provider: pypi
