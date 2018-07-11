@@ -49,7 +49,7 @@ class TornadoResponse(BaseResponse):
         if not stream:
             nbytes = n.value
 
-            accept_enc = self._req_hdlr.request.headers['Accept-Encoding']
+            accept_enc = self._req_hdlr.request.get('Accept-Encoding', '')
             accept_enc = set([e.strip().lower() for e in accept_enc.split(',') if e.strip()])
 
             if 'gzip' in accept_enc:
