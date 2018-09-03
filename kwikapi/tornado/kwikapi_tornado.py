@@ -106,11 +106,12 @@ class RequestHandler(TornadoRequestHandler):
 
         if not res._stream:
             self.write(res._data)
+            self.flush()
         else:
             for x in res._data:
                 self.write(x)
+                await self.flush()
 
-        self.flush()
         self.finish()
 
     get = post = _handle

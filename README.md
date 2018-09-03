@@ -4,7 +4,7 @@ Quickly build API services to expose functionality in Python. `kwikapi.tornado` 
 ## Installation
 
 ```bash
-$ pip install kwikapi[tornado]
+$ pip3 install kwikapi[tornado]
 ```
 
 ## Usage
