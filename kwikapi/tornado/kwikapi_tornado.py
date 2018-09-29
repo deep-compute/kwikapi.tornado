@@ -116,7 +116,7 @@ class RequestHandler(TornadoRequestHandler):
                 try:
                     await self.flush()
                 except tornado.iostream.StreamClosedError:
-                    break
+                    continue
 
         self.finish()
 
