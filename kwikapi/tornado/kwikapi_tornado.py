@@ -4,9 +4,11 @@ import asyncio
 import gzip
 import io
 
+import tornado
+import tornado.ioloop
+
 from tornado.web import RequestHandler as TornadoRequestHandler
 from tornado.web import asynchronous
-import tornado.ioloop
 from kwikapi import BaseRequest, BaseResponse, BaseRequestHandler
 from requests.structures import CaseInsensitiveDict
 
@@ -108,9 +110,13 @@ class RequestHandler(TornadoRequestHandler):
             self.write(res._data)
             self.flush()
         else:
+            
             for x in res._data:
                 self.write(x)
-                await self.flush()
+                try:
+                    await self.flush()
+                except tornado.iostream.StreamClosedError:
+                    continue
 
         self.finish()
 
