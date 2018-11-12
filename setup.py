@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 # https://docs.djangoproject.com/en/1.11/intro/reusable-apps/
-version = '0.3.2'
+version = '0.3.3'
 setup(
     name="kwikapi-tornado",
     version=version,
@@ -15,7 +15,7 @@ setup(
     author_email='contact@deepcompute.com',
     install_requires=[
         'tornado==5.0.2',
-        'deeputil==0.2.5',
+        'deeputil==0.2.7',
         'requests==2.18.4',
     ],
     classifiers=[
