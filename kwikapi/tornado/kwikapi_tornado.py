@@ -97,27 +97,31 @@ class RequestHandler(TornadoRequestHandler):
             self.kwik_req_hdlr.handle_request(req)
             return req.response
 
-        if threadpool:
-            loop = tornado.ioloop.IOLoop.current()
-            res = await loop.run_in_executor(threadpool, fn)
-        else:
-            res = fn()
+        try:
+            if threadpool:
+                loop = tornado.ioloop.IOLoop.current()
+                res = await loop.run_in_executor(threadpool, fn)
+            else:
+                res = fn()
 
-        for k, v in res.headers.items():
-            self.set_header(k, v)
+            for k, v in res.headers.items():
+                self.set_header(k, v)
 
-        if not res._stream:
-            self.write(res._data)
-            self.flush()
-        else:
-            
-            for x in res._data:
-                self.write(x)
-                try:
-                    await self.flush()
-                except tornado.iostream.StreamClosedError:
-                    continue
+            if not res._stream:
+                self.write(res._data)
+                self.flush()
+            else:
 
-        self.finish()
+                for x in res._data:
+                    self.write(x)
+                    try:
+                        await self.flush()
+                    except tornado.iostream.StreamClosedError:
+                        continue
+        except Exception:
+            self.log.exception('unhandle_request_handling_exception')
+            raise
+        finally:
+            self.finish()
 
     get = post = _handle
