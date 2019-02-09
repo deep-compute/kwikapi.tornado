@@ -16,7 +16,7 @@ setup(
     install_requires=[
         'tornado==5.0.2',
         'deeputil==0.2.7',
-        'requests==2.18.4',
+        'requests==2.20.0',
     ],
     classifiers=[
         'Environment :: Web Environment',
