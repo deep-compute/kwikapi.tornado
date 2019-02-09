@@ -16,7 +16,7 @@ deploy:
     repo: deep-compute/kwikapi.tornado
 - provider: pypi
   distributions: "sdist bdist_wheel"
-  server: https://test.pypi.org/legacy
+  server: https://test.pypi.org/legacy/
   user: deepcompute
   password:
     secure: "I6PEVxs2MO8JQX/IE160jIsOz1Xk65vXpWA0mqM4VGlUrnS+bJMyoI7U8fG1tFoa29LzHb0BLRnDSvWP2mqNm4Ro6lYISZr0PxMZNyCudRif/egZYkRRR54YQ7GgFamqbvGBiaDecbrkmI5yxIpXWPbFr+ctN9nm6vqDDH6N3c7aZSEt90Ddl3Yf4R/EB6w2AkgYwVoGji7cOFnMD1BNTEgbQpNt/DHnnmDdWa2VMuo5InOoyGxA5hUPTK282/6+0XcyI1JMqcSapjo3ZhsGPaUZDHopQqWuEEsXFWJJZm4iTmBsFSGvoQ+Dt+OANzYeB2whukFZYp3eDP79fASeQPJEQEk9WE6Slr7EO/Fc5yBpLFX9UPu/maDKMhZcmaJU95jU6wuU50+8W0QLyIMQwiz480afmFmLWotp0Mu+x8cUi4cF0sI2ZuhZ0fDErahltqk70D2GYCmd1lBTvU5RrY/LQrMNW7D9Oj6JrjWI18zrQfhbdwW57QfgbG81QRVJrPban3r2efwYJzEpP5+u0EarElzXCd2xZhrjSc4v4rM+9XYhjzqX9nfDWQiPzwLmiJR8ruYpKn0420PxswGhPisj4AbaIHA6spJW881hOz7VlKsa8gUB3R9PSK6JQWDyAutwh2U0sPxDs7BQbqChrq7o9sIRWRxPvsPFARUmpA8="
