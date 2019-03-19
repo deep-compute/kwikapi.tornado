@@ -82,10 +82,19 @@ class RequestHandler(TornadoRequestHandler):
     def __init__(self, *args, **kwargs):
         self.api = kwargs.pop('api')
         self.log = kwargs.pop('log', DUMMY_LOG)
+
         default_version = kwargs.pop('default_version', None)
         default_protocol = kwargs.pop('default_protocol', self.PROTOCOL)
+
+        pre_call_hook = kwargs.pop('pre_call_hook', None)
+        post_call_hook = kwargs.pop('post_call_hook', None)
+
         self.kwik_req_hdlr = BaseRequestHandler(self.api,
-                default_version, default_protocol, log=self.log)
+                default_version=default_version,
+                default_protocol=default_protocol,
+                pre_call_hook=pre_call_hook,
+                post_call_hook=post_call_hook,
+                log=self.log)
 
         super().__init__(*args, **kwargs)
 
