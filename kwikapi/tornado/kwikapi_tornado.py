@@ -43,7 +43,7 @@ class TornadoResponse(BaseResponse):
     def __init__(self, req_hdlr):
         super().__init__()
         self._req_hdlr = req_hdlr
-        self.headers = CaseInsensitiveDict()
+        self._headers = CaseInsensitiveDict()
 
     def write(self, data, proto, stream=False):
         n, t = super().write(data, proto, stream=stream)
@@ -62,9 +62,9 @@ class TornadoResponse(BaseResponse):
                 gfile.close()
                 self._data = compressed.getvalue()
                 nbytes = len(self._data)
-                self.headers['Content-Encoding'] = 'gzip'
+                self._headers['Content-Encoding'] = 'gzip'
 
-            self.headers['Content-Length'] = nbytes
+            self._headers['Content-Length'] = nbytes
 
         self._stream = stream
 
@@ -75,6 +75,10 @@ class TornadoResponse(BaseResponse):
 
     def close(self):
         pass
+
+    @property
+    def headers(self):
+        return self._headers
 
 class RequestHandler(TornadoRequestHandler):
     PROTOCOL = BaseRequestHandler.DEFAULT_PROTOCOL
