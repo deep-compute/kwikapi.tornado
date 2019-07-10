@@ -1,10 +1,5 @@
-language: python
-python:
-- '3.5'
-install:
-- pip install .
-script:
-- echo "No tests as of now"
+before_install:
+- pip3 install black
 deploy:
 - provider: releases
   skip_cleanup: true
@@ -12,23 +7,31 @@ deploy:
     secure: mWdLXjWAbioxRdJ0XGFYm6WeV90W+ZaabQHCjlnFVX576hJqyQabs9pkHoF/VnanecEtoOVzt7cZdmZQ+mNoZgbSE+90iGZosZO0GZFX7MjhxYw5bJOUmRr9L+/6cV7v+XEE8cFQTFCQgMPycWOjvnyuRixLGDVn/l1MeUc84xpSD7T4XwIZlwX9YB6fKAtvuz9vq5xQwV8mJOtIWN3NqlVuhdew7WkUdq0eiRK5dm1G05o/tiKfxCI+76fyRr6FLmzs7WH/CS5spbMpr6bv9iBirOYK57Jr5xdS1zE4mnwaJ8vIubbjO7BN4H8AjwdMzUBF96X2nRVRluGi0sGbbBEQiGCOg2Qtjb3udGaekmPYF6DRwQZMhBtvsd2B31gIhRps2qQigiZUfqnWr3p4Uoua5+2yOfVJUuHxbBLvlag4qbfGr1LZg/lRt58WGydtwfqXuKVlEUyhQvqd7AGfwVOVRW3ezmpqerMRNSHzkf+XnuB/A3/7FEY1xdMbez6yDqxbp8Jm7qmscwnt+7SR14Ur63jSv+qeact6z9H60mFCOWO5533rtfNDIHO6Av7N+IgeOG8i30K+OgWWa2vXWqrjrBEttFs0qi9O3PAMImXkw/iiHlCYkFDDwyTZCzYUQA1LiBP5q+8IfEj8up58NxM6wvB1TrVi2jEq29GHX3Y=
   name: kwikapi.tornado-0.3.7
   tag_name: 0.3.7
-  on:
+  true:
     repo: deep-compute/kwikapi.tornado
 - provider: pypi
-  distributions: "sdist bdist_wheel"
+  distributions: sdist bdist_wheel
   server: https://test.pypi.org/legacy/
   user: deepcompute
   password:
-    secure: "I6PEVxs2MO8JQX/IE160jIsOz1Xk65vXpWA0mqM4VGlUrnS+bJMyoI7U8fG1tFoa29LzHb0BLRnDSvWP2mqNm4Ro6lYISZr0PxMZNyCudRif/egZYkRRR54YQ7GgFamqbvGBiaDecbrkmI5yxIpXWPbFr+ctN9nm6vqDDH6N3c7aZSEt90Ddl3Yf4R/EB6w2AkgYwVoGji7cOFnMD1BNTEgbQpNt/DHnnmDdWa2VMuo5InOoyGxA5hUPTK282/6+0XcyI1JMqcSapjo3ZhsGPaUZDHopQqWuEEsXFWJJZm4iTmBsFSGvoQ+Dt+OANzYeB2whukFZYp3eDP79fASeQPJEQEk9WE6Slr7EO/Fc5yBpLFX9UPu/maDKMhZcmaJU95jU6wuU50+8W0QLyIMQwiz480afmFmLWotp0Mu+x8cUi4cF0sI2ZuhZ0fDErahltqk70D2GYCmd1lBTvU5RrY/LQrMNW7D9Oj6JrjWI18zrQfhbdwW57QfgbG81QRVJrPban3r2efwYJzEpP5+u0EarElzXCd2xZhrjSc4v4rM+9XYhjzqX9nfDWQiPzwLmiJR8ruYpKn0420PxswGhPisj4AbaIHA6spJW881hOz7VlKsa8gUB3R9PSK6JQWDyAutwh2U0sPxDs7BQbqChrq7o9sIRWRxPvsPFARUmpA8="
-  on:
-    tags: false
+    secure: I6PEVxs2MO8JQX/IE160jIsOz1Xk65vXpWA0mqM4VGlUrnS+bJMyoI7U8fG1tFoa29LzHb0BLRnDSvWP2mqNm4Ro6lYISZr0PxMZNyCudRif/egZYkRRR54YQ7GgFamqbvGBiaDecbrkmI5yxIpXWPbFr+ctN9nm6vqDDH6N3c7aZSEt90Ddl3Yf4R/EB6w2AkgYwVoGji7cOFnMD1BNTEgbQpNt/DHnnmDdWa2VMuo5InOoyGxA5hUPTK282/6+0XcyI1JMqcSapjo3ZhsGPaUZDHopQqWuEEsXFWJJZm4iTmBsFSGvoQ+Dt+OANzYeB2whukFZYp3eDP79fASeQPJEQEk9WE6Slr7EO/Fc5yBpLFX9UPu/maDKMhZcmaJU95jU6wuU50+8W0QLyIMQwiz480afmFmLWotp0Mu+x8cUi4cF0sI2ZuhZ0fDErahltqk70D2GYCmd1lBTvU5RrY/LQrMNW7D9Oj6JrjWI18zrQfhbdwW57QfgbG81QRVJrPban3r2efwYJzEpP5+u0EarElzXCd2xZhrjSc4v4rM+9XYhjzqX9nfDWQiPzwLmiJR8ruYpKn0420PxswGhPisj4AbaIHA6spJW881hOz7VlKsa8gUB3R9PSK6JQWDyAutwh2U0sPxDs7BQbqChrq7o9sIRWRxPvsPFARUmpA8=
+  true:
     branch: master
+    tags: false
 - provider: pypi
-  distributions: "sdist bdist_wheel"
+  distributions: sdist bdist_wheel
   server: https://upload.pypi.org/legacy/
   user: deepcompute
   password:
-    secure: "I6PEVxs2MO8JQX/IE160jIsOz1Xk65vXpWA0mqM4VGlUrnS+bJMyoI7U8fG1tFoa29LzHb0BLRnDSvWP2mqNm4Ro6lYISZr0PxMZNyCudRif/egZYkRRR54YQ7GgFamqbvGBiaDecbrkmI5yxIpXWPbFr+ctN9nm6vqDDH6N3c7aZSEt90Ddl3Yf4R/EB6w2AkgYwVoGji7cOFnMD1BNTEgbQpNt/DHnnmDdWa2VMuo5InOoyGxA5hUPTK282/6+0XcyI1JMqcSapjo3ZhsGPaUZDHopQqWuEEsXFWJJZm4iTmBsFSGvoQ+Dt+OANzYeB2whukFZYp3eDP79fASeQPJEQEk9WE6Slr7EO/Fc5yBpLFX9UPu/maDKMhZcmaJU95jU6wuU50+8W0QLyIMQwiz480afmFmLWotp0Mu+x8cUi4cF0sI2ZuhZ0fDErahltqk70D2GYCmd1lBTvU5RrY/LQrMNW7D9Oj6JrjWI18zrQfhbdwW57QfgbG81QRVJrPban3r2efwYJzEpP5+u0EarElzXCd2xZhrjSc4v4rM+9XYhjzqX9nfDWQiPzwLmiJR8ruYpKn0420PxswGhPisj4AbaIHA6spJW881hOz7VlKsa8gUB3R9PSK6JQWDyAutwh2U0sPxDs7BQbqChrq7o9sIRWRxPvsPFARUmpA8="
-  on:
-    tags: true
+    secure: I6PEVxs2MO8JQX/IE160jIsOz1Xk65vXpWA0mqM4VGlUrnS+bJMyoI7U8fG1tFoa29LzHb0BLRnDSvWP2mqNm4Ro6lYISZr0PxMZNyCudRif/egZYkRRR54YQ7GgFamqbvGBiaDecbrkmI5yxIpXWPbFr+ctN9nm6vqDDH6N3c7aZSEt90Ddl3Yf4R/EB6w2AkgYwVoGji7cOFnMD1BNTEgbQpNt/DHnnmDdWa2VMuo5InOoyGxA5hUPTK282/6+0XcyI1JMqcSapjo3ZhsGPaUZDHopQqWuEEsXFWJJZm4iTmBsFSGvoQ+Dt+OANzYeB2whukFZYp3eDP79fASeQPJEQEk9WE6Slr7EO/Fc5yBpLFX9UPu/maDKMhZcmaJU95jU6wuU50+8W0QLyIMQwiz480afmFmLWotp0Mu+x8cUi4cF0sI2ZuhZ0fDErahltqk70D2GYCmd1lBTvU5RrY/LQrMNW7D9Oj6JrjWI18zrQfhbdwW57QfgbG81QRVJrPban3r2efwYJzEpP5+u0EarElzXCd2xZhrjSc4v4rM+9XYhjzqX9nfDWQiPzwLmiJR8ruYpKn0420PxswGhPisj4AbaIHA6spJW881hOz7VlKsa8gUB3R9PSK6JQWDyAutwh2U0sPxDs7BQbqChrq7o9sIRWRxPvsPFARUmpA8=
+  true:
     branch: master
+    tags: true
+install:
+- pip install .
+language: python
+python:
+- '3.5'
+script:
+- black --check .
+- echo "No tests as of now"
