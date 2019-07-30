@@ -1,5 +1,3 @@
-before_install:
-- pip3 install black
 deploy:
 - provider: releases
   skip_cleanup: true
@@ -33,5 +31,5 @@ language: python
 python:
 - '3.5'
 script:
-- black --check .
+- docker run -v $(pwd):/app deepcompute/black:python-black-latest --check .
 - echo "No tests as of now"

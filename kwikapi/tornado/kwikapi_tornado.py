@@ -16,8 +16,8 @@ from deeputil import Dummy
 
 DUMMY_LOG = Dummy()
 
-class TornadoRequest(BaseRequest):
 
+class TornadoRequest(BaseRequest):
     def __init__(self, req_hdlr):
         super().__init__()
         self._request = req_hdlr.request
@@ -39,6 +39,7 @@ class TornadoRequest(BaseRequest):
     def headers(self):
         return self._request.headers
 
+
 class TornadoResponse(BaseResponse):
     def __init__(self, req_hdlr):
         super().__init__()
@@ -51,20 +52,22 @@ class TornadoResponse(BaseResponse):
         if not stream:
             nbytes = n.value
 
-            accept_enc = self._req_hdlr.request.headers.get('Accept-Encoding', '')
-            accept_enc = set([e.strip().lower() for e in accept_enc.split(',') if e.strip()])
+            accept_enc = self._req_hdlr.request.headers.get("Accept-Encoding", "")
+            accept_enc = set(
+                [e.strip().lower() for e in accept_enc.split(",") if e.strip()]
+            )
 
-            if 'gzip' in accept_enc:
+            if "gzip" in accept_enc:
                 compressed = io.BytesIO()
-                gfile = gzip.GzipFile(fileobj=compressed, mode='w')
+                gfile = gzip.GzipFile(fileobj=compressed, mode="w")
                 gfile.write(self._data)
                 gfile.flush()
                 gfile.close()
                 self._data = compressed.getvalue()
                 nbytes = len(self._data)
-                self._headers['Content-Encoding'] = 'gzip'
+                self._headers["Content-Encoding"] = "gzip"
 
-            self._headers['Content-Length'] = nbytes
+            self._headers["Content-Length"] = nbytes
 
         self._stream = stream
 
@@ -80,25 +83,28 @@ class TornadoResponse(BaseResponse):
     def headers(self):
         return self._headers
 
+
 class RequestHandler(TornadoRequestHandler):
     PROTOCOL = BaseRequestHandler.DEFAULT_PROTOCOL
 
     def __init__(self, *args, **kwargs):
-        self.api = kwargs.pop('api')
-        self.log = kwargs.pop('log', DUMMY_LOG)
+        self.api = kwargs.pop("api")
+        self.log = kwargs.pop("log", DUMMY_LOG)
 
-        default_version = kwargs.pop('default_version', None)
-        default_protocol = kwargs.pop('default_protocol', self.PROTOCOL)
+        default_version = kwargs.pop("default_version", None)
+        default_protocol = kwargs.pop("default_protocol", self.PROTOCOL)
 
-        pre_call_hook = kwargs.pop('pre_call_hook', None)
-        post_call_hook = kwargs.pop('post_call_hook', None)
+        pre_call_hook = kwargs.pop("pre_call_hook", None)
+        post_call_hook = kwargs.pop("post_call_hook", None)
 
-        self.kwik_req_hdlr = BaseRequestHandler(self.api,
-                default_version=default_version,
-                default_protocol=default_protocol,
-                pre_call_hook=pre_call_hook,
-                post_call_hook=post_call_hook,
-                log=self.log)
+        self.kwik_req_hdlr = BaseRequestHandler(
+            self.api,
+            default_version=default_version,
+            default_protocol=default_protocol,
+            pre_call_hook=pre_call_hook,
+            post_call_hook=post_call_hook,
+            log=self.log,
+        )
 
         super().__init__(*args, **kwargs)
 
@@ -132,7 +138,7 @@ class RequestHandler(TornadoRequestHandler):
                     except tornado.iostream.StreamClosedError:
                         continue
         except Exception:
-            self.log.exception('unhandle_request_handling_exception')
+            self.log.exception("unhandle_request_handling_exception")
             raise
         finally:
             self.finish()
