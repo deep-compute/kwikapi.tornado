@@ -39,6 +39,10 @@ class TornadoRequest(BaseRequest):
     def headers(self):
         return self._request.headers
 
+    @property
+    def files(self):
+        return self._request.files
+
 
 class TornadoResponse(BaseResponse):
     def __init__(self, req_hdlr):
