@@ -13,7 +13,7 @@ setup(
     download_url="https://github.com/deep-compute/kwikapi.tornado/tarball/%s" % version,
     author="Deep Compute, LLC",
     author_email="contact@deepcompute.com",
-    install_requires=["tornado==5.0.2", "deeputil==0.2.9", "requests==2.20.0"],
+    install_requires=["tornado==5.0.2", "deeputil==0.2.9", "requests==2.31.0"],
     classifiers=[
         "Environment :: Web Environment",
         "Intended Audience :: Developers",
